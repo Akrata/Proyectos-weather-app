@@ -49,7 +49,7 @@ main{
 }
 .container{
   height: 100vh;
-  width: 360px;
+  width: 100vw;
   background-image: url(../images/soleado.jpg);
   background-size: cover;
   background-position: center;
@@ -57,7 +57,7 @@ main{
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  
+ 
 }
 .container__card{
   display: flex;
