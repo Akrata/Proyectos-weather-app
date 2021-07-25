@@ -57,6 +57,7 @@ main{
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding-bottom: 16px;
  
 }
 .container__card{
@@ -67,7 +68,7 @@ main{
   background: var(--gradient);
   width: 235px;
   height: 91px;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   border-radius:8px;
   padding: 20px 16px;
   text-align: center;
