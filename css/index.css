@@ -21,6 +21,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Nunito;
+  
 }
 body {
   color: var(--primary);
@@ -29,6 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
 }
 
 header, footer{
@@ -46,7 +48,7 @@ main{
 
 }
 .container{
-  height: 665px;
+  height: 100vh;
   width: 360px;
   background-image: url(../images/soleado.jpg);
   background-size: cover;
@@ -69,6 +71,10 @@ main{
   border-radius:8px;
   padding: 20px 16px;
   text-align: center;
+  transition: all .5s;
+}
+.swap-card{
+  transform: translateY(-284px);
 }
 .container__card--left{
   /* border: 1px solid red; */
@@ -106,8 +112,15 @@ main{
   height: 284px;
   background-color: var(--bg);
   border-radius: 16px 16px 0px 0px; 
-  /* display: none; */
+  visibility: hidden;
   padding-top: 12px;
+  transition: all .5s ;
+}
+
+.swap-top{
+  visibility: visible;
+  transform: translateY(-284px);
+  
 }
 .bar{
   height: 4px;
@@ -143,12 +156,10 @@ main{
   height: 144px;
   /* border: solid 1px blue; */
   /* display: flex; */
-  gap:16px;
   
-  align-items: center;
+  
   white-space: nowrap;
   overflow: auto;
-  
   
 }
 
@@ -158,7 +169,23 @@ main{
   background: var(--black);
   border-radius: 58px;
   display: inline-block;
-  margin-left: 16px;
+  margin-left: 14px;
+  align-items: center;
+  position: relative;
+}
+
+
+.individual__in{
+  width: 65px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 16px 0px;
+  /* margin-top: 16px ; */
+  justify-content: space-between;
+  color: var(--white);
 }
 
 .swap__temp,
