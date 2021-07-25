@@ -108,7 +108,7 @@ main{
 }
 
 .swap{
-  width: 360px;
+  width: 100vw;
   height: 284px;
   background-color: var(--bg);
   border-radius: 16px 16px 0px 0px; 
@@ -135,6 +135,8 @@ main{
   height: 48px;
   display: flex;
   align-items: center;
+
+  justify-content: center;
 }
 
 .swap__days ul{
@@ -155,7 +157,6 @@ main{
 .swap__hours{
   height: 144px;
   /* border: solid 1px blue; */
-  /* display: flex; */
   
   
   white-space: nowrap;
