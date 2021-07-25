@@ -26,6 +26,9 @@ body {
   color: var(--primary);
   font: var(--body1-regular);
   background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 header, footer{
@@ -97,3 +100,79 @@ main{
   width: 15px;
   color: white;
 }
+
+.swap{
+  width: 360px;
+  height: 284px;
+  background-color: var(--bg);
+  border-radius: 16px 16px 0px 0px; 
+  /* display: none; */
+  padding-top: 12px;
+}
+.bar{
+  height: 4px;
+  width: 64px;
+  background-color: var(--grey);
+  /* border: 1px solid blue; */
+  margin: 0 auto 0 auto  ;
+  border-radius: 5px;
+}
+.swap__days{
+  /* border: solid 1px red; */
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.swap__days ul{
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  margin-left: 14px;
+  color:var(--white);
+
+}
+.swap__days ul a{
+  text-decoration: none;
+  color:white;
+}
+
+
+
+.swap__hours{
+  height: 144px;
+  /* border: solid 1px blue; */
+  /* display: flex; */
+  gap:16px;
+  
+  align-items: center;
+  white-space: nowrap;
+  overflow: auto;
+  
+  
+}
+
+.swap__hours--individual{
+  width: 65px;
+  height: 112px;
+  background: var(--black);
+  border-radius: 58px;
+  display: inline-block;
+  margin-left: 16px;
+}
+
+.swap__temp,
+.swap__wind{
+  height: 40px;
+  /* border: solid 1px white; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0px 16px;
+  color: var(--white);
+  text-align: center;
+}
+
+p>span{
+  font-weight: bold;
+}
+
