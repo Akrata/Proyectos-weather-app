@@ -45,7 +45,7 @@ header, footer{
 main{
   display: flex;
   justify-content: center;
-
+  
 }
 .container{
   height: 100vh;
@@ -120,7 +120,7 @@ main{
 
 .swap-top{
   visibility: visible;
-  transform: translateY(-300px);
+  transform: translateY(-284px);
   
 }
 .bar{
