@@ -2,10 +2,10 @@ const API_KEY = "edbd7f5332b0eacf66210e464485e33b";
 let api = ``
 
 let clima = {
-    soleado : '../icons/Sun.svg',
-    nublado : '../icons/Cloud.svg',
-    lluvia : '../icons/Cloud-drizzle.svg',
-    tormenta : '../icons/Cloud-lightning.svg'
+    soleado : './icons/Sun.svg',
+    nublado : './icons/Cloud.svg',
+    lluvia : './icons/Cloud-drizzle.svg',
+    tormenta : './icons/Cloud-lightning.svg'
 }
 
 const fetchDataLatLon = async(latitude, longitude) => {
