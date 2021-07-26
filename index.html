@@ -12,18 +12,15 @@
   <title>Weather App</title>
 </head>
 <body>
-  <header>
-    <h1>Weather App</h1>
-  </header>
   <main>
     <div class="container">
       <div class="container__card" id="swapButton">
         <div class="container__card--left">
-          <p>25°</p>
+          <p id="temperature"></p>
         </div>
         <div class="container__card--right">
-          <p>Viernes, 23 de julio</p>
-          <p> <img src="./icons/Property 1=map-pin.svg" alt=""> Montevideo</p>
+          <p id="fecha">Viernes, 23 de julio</p>
+          <p id="city"> <img src="./icons/Property 1=map-pin.svg" alt=""> Montevideo</p>
         </div>
       </div>
     </div>
@@ -39,53 +36,25 @@
         <li><a href="">Siguiente semana</a></li>
       </ul>
     </div>
-    <div class="swap__hours">
+    <div id="swap" class="swap__hours">
       <div class="swap__hours--individual">
         <div class="individual__in">
-          <p>Ahora</p>
+          <p id="swap--hora">Ahora</p>
           <img src="./icons/Property 1=Sun.svg" alt="soleado">
-          <p>25°</p>
-        </div>
-      </div>
-      <div class="swap__hours--individual">
-        <div class="individual__in">
-          <p>4 p.m</p>
-          <img src="icons/Property 1=Cloud.svg" alt="soleado">
-          <p>25°</p>
-        </div>
-      </div>
-      <div class="swap__hours--individual">
-        <div class="individual__in">
-          <p>5 p.m</p>
-          <img src="./icons/Property 1=Cloud-drizzle.svg" alt="soleado">
-          <p>25°</p>
-        </div>
-      </div>
-      <div class="swap__hours--individual">
-        <div class="individual__in">
-          <p>6 p.m</p>
-          <img src="./icons/Property 1=Cloud.svg" alt="soleado">
-          <p>25°</p>
-        </div>
-      </div>
-      <div class="swap__hours--individual">
-        <div class="individual__in">
-          <p>7 p.m</p>
-          <img src="./icons/Property 1=Sun.svg" alt="soleado">
-          <p>25°</p>
+          <p id="swap--temp">25°</p>
         </div>
       </div>
     </div>
     <div class="swap__temp">
-      <p>Máx:<span> 26°</span></p>
-      <p>Mín:<span> 19°</span></p>
+      <p>Máx:<span id="max">26°</span></p>
+      <p>Mín:<span id="min">19°</span></p>
     </div>
     <div class="swap__wind">
-      <p>Viento:<span> 16 Km-h</span></p>
-      <p>Humedad:<span> 63%</span></p>
+      <p>Viento:<span id="viento">16 Km-h</span></p>
+      <p>Humedad:<span id="humedad">63%</span></p>
     </div>
 
   </div>
-  <script src="./src/index.js"></script>
+  <script type="module" src="./src/index.js"></script>
 </body>
 </html>
