@@ -1,8 +1,5 @@
 const API_KEY = "edbd7f5332b0eacf66210e464485e33b";
-let place = "Las piedras"
-let api = `https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${API_KEY}`
-
-let clima = {};
+let api = ``
 
 
 const fetchDataLatLon = async(latitude, longitude) => {
@@ -20,15 +17,20 @@ const fetchDataLatLon = async(latitude, longitude) => {
                 humedad: data.current.humidity,
                 viento: data.current.wind_speed,
             };
-            
-            for (let i = 0; i < 24; i++) {
-                    let weatherHour = {
+            let weatherHour = []
+            let hora = obtenerHora();
+            for (let i = 0; i < (24 - obtenerHora()); i++) {
+                      
+                let item = {
                         temp: floorTemp(data.hourly[i].temp),
                         desc: data.hourly[i].weather[0].main,
-                        hora: i,
+                        hora: hora,
                     }
-                pintarIndividual(weatherHour);
+                    hora += 1;
+                   
+                    weatherHour.push(item);
             }
+            pintarIndividual(weatherHour);
         pintarCard(weatherToday);
         
         
@@ -44,7 +46,11 @@ const quitarBarra = (string) => {
     const res = string.indexOf("/");
     return res +1
 }
-
+const obtenerHora = () =>{
+    let hoy = new Date();
+    let hora = hoy.getHours();
+    return hora
+}
 const obtenerFecha = () =>{
     let meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
     let diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
@@ -52,7 +58,7 @@ const obtenerFecha = () =>{
     return(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()]);
 }
 
-console.log(quitarBarra("America/Montevideo"));
+
 const success = (position) => {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -74,10 +80,21 @@ const pintarCard = (weatherToday) => {
 
 }
 
-const pintarIndividual = (weatherHour) =>{
-   
 
-   
+
+const pintarIndividual = (weatherHour) => {
+    const swap = document.getElementById("swap");
+    const template = document.getElementById("template_individual").content;
+    const fragment = document.createDocumentFragment()
+    
+    weatherHour.forEach(element => {
+        template.querySelector('#swap--hora').textContent = `${element.hora}:00`;
+        template.querySelector('#swap--temp').textContent = element.temp;
+
+        const clone = template.cloneNode(true);
+        fragment.appendChild(clone)
+    });
+    swap.appendChild(fragment);
 }
 
 export default api;
