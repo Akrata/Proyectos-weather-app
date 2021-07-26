@@ -1,6 +1,12 @@
 const API_KEY = "edbd7f5332b0eacf66210e464485e33b";
 let api = ``
 
+let clima = {
+    soleado : '../icons/Sun.svg',
+    nublado : '../icons/Cloud.svg',
+    lluvia : '../icons/Cloud-drizzle.svg',
+    tormenta : '../icons/Cloud-lightning.svg'
+}
 
 const fetchDataLatLon = async(latitude, longitude) => {
     try {
@@ -86,11 +92,26 @@ const pintarIndividual = (weatherHour) => {
     const swap = document.getElementById("swap");
     const template = document.getElementById("template_individual").content;
     const fragment = document.createDocumentFragment()
+
     
     weatherHour.forEach(element => {
         template.querySelector('#swap--hora').textContent = `${element.hora}:00`;
         template.querySelector('#swap--temp').textContent = element.temp;
-
+        let icono = template.querySelector('#icono-clima')
+        const climaIcono = ()=>{
+            console.log(element.desc);
+            if(element.desc == "Rain"){
+                return clima.tormenta;
+            }
+            if(element.desc == "Clouds"){
+                return clima.nublado;
+            }
+            if(element.desc == "Clear"){
+                return clima.soleado;
+            }
+        }
+        console.log(climaIcono());
+        icono.setAttribute('src', `${climaIcono()}`)
         const clone = template.cloneNode(true);
         fragment.appendChild(clone)
     });
