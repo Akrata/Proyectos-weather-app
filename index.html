@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/index.css">
-  <link rel="stylesheet" href="./css/fonts.css">
-  <title>Weather App</title>
-</head>
-<body>
-  <main>
-    <div class="container">
-      <div class="container__card" id="swapButton">
-        <div class="container__card--left">
-          <p id="temperature"></p>
-        </div>
-        <div class="container__card--right">
-          <p id="fecha">Viernes, 23 de julio</p>
-          <p id="city"> <img src="./icons/Property 1=map-pin.svg" alt=""> Montevideo</p>
-        </div>
-      </div>
-    </div>
-  </main>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/fonts.css" />
+        <title>Weather App</title>
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="container__card" id="swapButton">
+                    <div class="container__card--left">
+                        <p id="temperature"></p>
+                    </div>
+                    <div class="container__card--right">
+                        <p id="fecha">Viernes, 23 de julio</p>
+                        <p id="city">
+                            <img src="./icons/Property 1=map-pin.svg" alt="" />
+                            Montevideo
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-  <div class="swap" id="swapInfo">
-    <div class="bar"></div>
-    <div class="swap__days">
-      <ul>
-        <li><a href="">Hoy</a></li>
-        <li><a href="">Mañana</a></li>
-        <li><a href="">Semana</a></li>
-        <li><a href="">Siguiente semana</a></li>
-      </ul>
-    </div>
-    <div id="swap" class="swap__hours">
-      <template id="template_individual">
-        <div class="swap__hours--individual">
-          <div class="individual__in">
-            <p id="swap--hora">Ahora</p>
-            <img id="icono-clima" src="" alt="soleado">
-            <p id="swap--temp">25°</p>
-          </div>
+        <div class="swap" id="swapInfo">
+            <div class="bar"></div>
+            <div class="swap__days">
+                <ul>
+                    <li><a href="">Hoy</a></li>
+                    <li><a href="">Mañana</a></li>
+                    <li><a href="">Semana</a></li>
+                    <li><a href="">Siguiente semana</a></li>
+                </ul>
+            </div>
+            <div id="swap" class="swap__hours">
+                <template id="template_individual">
+                    <div class="swap__hours--individual">
+                        <div class="individual__in">
+                            <p id="swap--hora">Ahora</p>
+                            <img id="icono-clima" src="" alt="soleado" />
+                            <p id="swap--temp">25°</p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class="swap__temp">
+                <p>Máx:<span id="max">26°</span></p>
+                <p>Mín:<span id="min">19°</span></p>
+            </div>
+            <div class="swap__wind">
+                <p>Viento:<span id="viento">16 Km-h</span></p>
+                <p>Humedad:<span id="humedad">63%</span></p>
+            </div>
         </div>
-      </template>
-    </div>
-    <div class="swap__temp">
-      <p>Máx:<span id="max">26°</span></p>
-      <p>Mín:<span id="min">19°</span></p>
-    </div>
-    <div class="swap__wind">
-      <p>Viento:<span id="viento">16 Km-h</span></p>
-      <p>Humedad:<span id="humedad">63%</span></p>
-    </div>
-
-  </div>
-  <script type="module" src="./src/index.js"></script>
-</body>
+        <script type="module" src="./src/index.js"></script>
+    </body>
 </html>
