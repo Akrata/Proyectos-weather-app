@@ -69,7 +69,7 @@ const fetchDataLatLon = async (latitude, longitude) => {
 
         for (let i = 0; i < data.daily.length; i++) {
             let item = {
-                temp: floorTemp(data.daily[i].temp.day),
+                temp: floorTemp(data.daily[i].temp.eve),
                 desc: data.daily[i].weather[0].main,
                 dia: diasSemana2[fecha.getDay() + i],
             };
