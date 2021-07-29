@@ -153,16 +153,15 @@ const pintarCard = (weatherToday) => {
         case "Rain":
             if (obtenerHora() > 7 && obtenerHora() < 19) {
                 container.style.backgroundImage =
-                    "url('../images/lluvioso.jpg')";
+                    "url('./images/lluvioso.jpg')";
                 break;
             } else {
                 container.style.backgroundImage =
-                    "url('../images/noche-lluvioso.jpg')";
+                    "url('./images/noche-lluvioso.jpg')";
             }
         case "Clear":
             if (obtenerHora() > 7 && obtenerHora() < 19) {
-                container.style.backgroundImage =
-                    "url('../images/soleado.jpg')";
+                container.style.backgroundImage = "url('./images/soleado.jpg')";
                 break;
             } else {
                 container.style.backgroundImage =
@@ -170,12 +169,11 @@ const pintarCard = (weatherToday) => {
             }
         case "Clouds":
             if (obtenerHora() > 7 && obtenerHora() < 19) {
-                container.style.backgroundImage =
-                    "url('../images/parcial.jpg')";
+                container.style.backgroundImage = "url('./images/parcial.jpg')";
                 break;
             } else {
                 container.style.backgroundImage =
-                    "url('../images/noche-parcial.jpg')";
+                    "url('./images/noche-parcial.jpg')";
             }
     }
     console.log(weatherToday.estado);
