@@ -8,6 +8,19 @@ let clima = {
     tormenta: "./icons/Cloud-lightning.svg",
 };
 let weatherHourTomorrow = [];
+let weatherDays = [];
+let weatherHour = [];
+
+let diasSemana2 = new Array(
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+);
+let fecha = new Date();
 
 const fetchDataLatLon = async (latitude, longitude) => {
     try {
@@ -27,13 +40,13 @@ const fetchDataLatLon = async (latitude, longitude) => {
             viento: data.current.wind_speed,
             estado: data.current.weather[0].main,
         };
-        let weatherHour = [];
+
         let hora = obtenerHora();
         for (let i = 0; i < 24 - obtenerHora(); i++) {
             let item = {
                 temp: floorTemp(data.hourly[i].temp),
                 desc: data.hourly[i].weather[0].main,
-                hora: hora,
+                hora: `${hora}:00`,
             };
             hora += 1;
 
@@ -45,22 +58,22 @@ const fetchDataLatLon = async (latitude, longitude) => {
             let item = {
                 temp: floorTemp(data.hourly[i].temp),
                 desc: data.hourly[i].weather[0].main,
-                hora: hora - 24,
+                hora: `${hora - 24}:00`,
             };
             hora += 1;
 
             weatherHourTomorrow.push(item);
         }
         console.log(weatherHourTomorrow);
-        //LOGICA DE DIAS
-        let weatherDays = [];
+        //LOGICA DE SEMANA
 
         for (let i = 0; i < data.daily.length; i++) {
             let item = {
                 temp: floorTemp(data.daily[i].temp.day),
                 desc: data.daily[i].weather[0].main,
-                dia: hora,
+                dia: diasSemana2[fecha.getDay() + i],
             };
+            console.log(diasSemana2[fecha.getDay() + i]);
             weatherDays.push(item);
         }
 
@@ -83,6 +96,20 @@ const obtenerHora = () => {
     let hora = hoy.getHours();
     return hora;
 };
+const obtenerDia = () => {
+    let diasSemana = new Array(
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado"
+    );
+    let f = new Date();
+    return diasSemana[f.getDay()];
+};
+
 const obtenerFecha = () => {
     let meses = new Array(
         "Enero",
@@ -146,7 +173,6 @@ const pintarCard = (weatherToday) => {
     const humedad = (document.getElementById(
         "humedad"
     ).innerText = ` ${weatherToday.humedad} %`);
-    //TODO FONDO DE PANTALLA
 
     // Rain, Clear, Clouds
     switch (weatherToday.estado) {
@@ -178,16 +204,12 @@ const pintarCard = (weatherToday) => {
     }
     console.log(weatherToday.estado);
 };
-
+const swap = document.getElementById("swap");
+const template = document.getElementById("template_individual").content;
+const fragment = document.createDocumentFragment();
 const pintarIndividual = (weatherHour) => {
-    const swap = document.getElementById("swap");
-    const template = document.getElementById("template_individual").content;
-    const fragment = document.createDocumentFragment();
-
     weatherHour.forEach((element) => {
-        template.querySelector(
-            "#swap--hora"
-        ).textContent = `${element.hora}:00`;
+        template.querySelector("#swap--hora").textContent = element.hora;
         template.querySelector("#swap--temp").textContent = element.temp;
         let icono = template.querySelector("#icono-clima");
         const climaIcono = () => {
@@ -209,19 +231,20 @@ const pintarIndividual = (weatherHour) => {
     swap.appendChild(fragment);
 };
 
-let vacio = [
-    {
-        temp: "",
-        desc: "",
-        dia: "",
-    },
-];
-
 const mañana = document.getElementById("mañana");
 mañana.addEventListener("click", () => {
-    console.log(weatherHourTomorrow);
-
-    // pintarIndividual(weatherHourTomorrow);
+    swap.innerHTML = "";
+    pintarIndividual(weatherHourTomorrow);
+});
+const hoy = document.getElementById("hoy");
+hoy.addEventListener("click", () => {
+    swap.innerHTML = "";
+    pintarIndividual(weatherHour);
+});
+const semana = document.getElementById("semana");
+semana.addEventListener("click", () => {
+    swap.innerHTML = "";
+    pintarIndividual(weatherDays);
 });
 
 export default api;
