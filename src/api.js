@@ -7,6 +7,7 @@ let clima = {
     lluvia: "./icons/Cloud-drizzle.svg",
     tormenta: "./icons/Cloud-lightning.svg",
 };
+let weatherHourTomorrow = [];
 
 const fetchDataLatLon = async (latitude, longitude) => {
     try {
@@ -40,7 +41,6 @@ const fetchDataLatLon = async (latitude, longitude) => {
         }
         //logica Tomorrow
 
-        let weatherHourTomorrow = [];
         for (let i = 24 - obtenerHora(); i < 48 - obtenerHora(); i++) {
             let item = {
                 temp: floorTemp(data.hourly[i].temp),
@@ -145,20 +145,38 @@ const pintarCard = (weatherToday) => {
     ).innerText = ` ${weatherToday.viento} Km/H`);
     const humedad = (document.getElementById(
         "humedad"
-    ).innerText = ` ${weatherToday.humedad} Km/H`);
+    ).innerText = ` ${weatherToday.humedad} %`);
     //TODO FONDO DE PANTALLA
 
     // Rain, Clear, Clouds
     switch (weatherToday.estado) {
         case "Rain":
-            container.style.backgroundImage = "url(../images/lluvioso.jpg)";
-            break;
-        case "Clouds":
-            container.style.backgroundImage = "url(../images/parcial.jpg)";
-            break;
+            if (obtenerHora() > 7 && obtenerHora() < 19) {
+                container.style.backgroundImage =
+                    "url('../images/lluvioso.jpg')";
+                break;
+            } else {
+                container.style.backgroundImage =
+                    "url('../images/noche-lluvioso.jpg')";
+            }
         case "Clear":
-            container.style.backgroundImage = "url(../images/soleado.jpg)";
-            break;
+            if (obtenerHora() > 7 && obtenerHora() < 19) {
+                container.style.backgroundImage =
+                    "url('../images/soleado.jpg')";
+                break;
+            } else {
+                container.style.backgroundImage =
+                    "url('../images/noche-despejado.jpg')";
+            }
+        case "Clouds":
+            if (obtenerHora() > 7 && obtenerHora() < 19) {
+                container.style.backgroundImage =
+                    "url('../images/parcial.jpg')";
+                break;
+            } else {
+                container.style.backgroundImage =
+                    "url('../images/noche-parcial.jpg')";
+            }
     }
     console.log(weatherToday.estado);
 };
@@ -192,5 +210,20 @@ const pintarIndividual = (weatherHour) => {
     });
     swap.appendChild(fragment);
 };
+
+let vacio = [
+    {
+        temp: "",
+        desc: "",
+        dia: "",
+    },
+];
+
+const mañana = document.getElementById("mañana");
+mañana.addEventListener("click", () => {
+    console.log(weatherHourTomorrow);
+
+    // pintarIndividual(weatherHourTomorrow);
+});
 
 export default api;

@@ -16,7 +16,7 @@
     </head>
     <body>
         <main>
-            <div class="container">
+            <div id="container" class="container">
                 <div class="container__card" id="swapButton">
                     <div class="container__card--left">
                         <p id="temperature"></p>
@@ -36,10 +36,10 @@
             <div class="bar"></div>
             <div class="swap__days">
                 <ul>
-                    <li><a href="">Hoy</a></li>
-                    <li><a href="">Mañana</a></li>
-                    <li><a href="">Semana</a></li>
-                    <li><a href="">Siguiente semana</a></li>
+                    <li><a class="is-selected" href="#">Hoy</a></li>
+                    <li><a  id="mañana" href="#">Mañana</a></li>
+                    <li><a href="#">Semana</a></li>
+                    <li><a href="#">Siguiente semana</a></li>
                 </ul>
             </div>
             <div id="swap" class="swap__hours">
