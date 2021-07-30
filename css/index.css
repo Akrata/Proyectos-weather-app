@@ -93,8 +93,10 @@ main {
     width: 15px;
     color: white;
 }
-
-.swap {
+.esconder {
+    display: none;
+}
+.swapInfo {
     width: 100vw;
     height: 284px;
     background-color: var(--bg);
@@ -189,4 +191,22 @@ main {
 
 p > span {
     font-weight: bold;
+}
+
+.tabla {
+    border-collapse: collapse;
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+td {
+    color: white;
+}
+th {
+    border-bottom: 1px solid;
+}
+.left {
+    text-align: left;
 }

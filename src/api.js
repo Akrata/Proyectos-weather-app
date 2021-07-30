@@ -106,6 +106,7 @@ const quitarBarra = (string) => {
 const obtenerHora = () => {
     let hoy = new Date();
     let hora = hoy.getHours();
+    console.log(hora);
     return hora;
 };
 const obtenerDia = () => {
@@ -200,33 +201,37 @@ const pintarCard = (weatherToday) => {
     const fecha = (document.getElementById("fecha").innerText = obtenerFecha());
 
     // Rain, Clear, Clouds
-    switch (weatherToday.estado) {
-        case "Rain":
-            if (obtenerHora() > 7 && obtenerHora() < 19) {
+
+    if (obtenerHora() >= 7 && obtenerHora() <= 19) {
+        switch (weatherToday.estado) {
+            case "Rain":
                 container.style.backgroundImage =
                     "url('./images/lluvioso.jpg')";
                 break;
-            } else {
-                container.style.backgroundImage =
-                    "url('./images/noche-lluvioso.jpg')";
-            }
-        case "Clear":
-            if (obtenerHora() > 7 && obtenerHora() < 19) {
+            case "Clear":
                 container.style.backgroundImage = "url('./images/soleado.jpg')";
                 break;
-            } else {
-                container.style.backgroundImage =
-                    "url('../images/noche-despejado.jpg')";
-            }
-        case "Clouds":
-            if (obtenerHora() > 7 && obtenerHora() < 19) {
+            case "Clouds":
                 container.style.backgroundImage = "url('./images/parcial.jpg')";
                 break;
-            } else {
+        }
+    } else {
+        switch (weatherToday.estado) {
+            case "Rain":
+                container.style.backgroundImage =
+                    "url('./images/noche-lluvioso.jpg')";
+                break;
+            case "Clear":
+                container.style.backgroundImage =
+                    "url('../images/noche-despejado.jpg')";
+                break;
+            case "Clouds":
                 container.style.backgroundImage =
                     "url('./images/noche-parcial.jpg')";
-            }
+                break;
+        }
     }
+
     console.log(weatherToday.estado);
 };
 const swap = document.getElementById("swap");
@@ -256,30 +261,62 @@ const pintarIndividual = (weatherHour) => {
     swap.appendChild(fragment);
     pintarBottom(weatherHour);
 };
+const tabla_estado_diario = document.getElementById("tabla_estado_diario");
+const tabla_estado_semanal = document.getElementById("tabla_estado_semanal");
+const tabla_template = document.getElementById("tabla_template").content;
+const tabla_fragment = document.createDocumentFragment();
+const pintarTabla = (weather) => {
+    weather.forEach((element) => {
+        tabla_template.querySelector("#tabla_dia").textContent = element.hora;
+        tabla_template.querySelector("#tabla_temp").textContent = element.temp;
+        let icono = tabla_template.querySelector("#tabla_icono");
+        const climaIcono = () => {
+            if (element.desc == "Rain") {
+                return clima.tormenta;
+            }
+            if (element.desc == "Clouds") {
+                return clima.nublado;
+            }
+            if (element.desc == "Clear") {
+                return clima.soleado;
+            }
+        };
 
-const mañana = document.getElementById("mañana");
-mañana.addEventListener("click", () => {
-    swap.innerHTML = "";
-    pintarIndividual(weatherHourTomorrow);
+        icono.setAttribute("src", `${climaIcono()}`);
+        const clone = tabla_template.cloneNode(true);
+        tabla_fragment.appendChild(clone);
+    });
+    tabla_estado_semanal.appendChild(fragment);
+};
 
-    mañana.classList.add("is-selected");
-    hoy.classList.remove("is-selected");
-    semana.classList.remove("is-selected");
-    siguiente_semana.classList.remove("is-selected");
-});
 const hoy = document.getElementById("hoy");
 hoy.addEventListener("click", () => {
     swap.innerHTML = "";
+    tabla_estado_semanal.classList.add("esconder");
+    tabla_estado_diario.classList.remove("esconder");
     pintarIndividual(weatherHour);
     mañana.classList.remove("is-selected");
     hoy.classList.add("is-selected");
     semana.classList.remove("is-selected");
     siguiente_semana.classList.remove("is-selected");
 });
+const mañana = document.getElementById("mañana");
+mañana.addEventListener("click", () => {
+    swap.innerHTML = "";
+    tabla_estado_semanal.classList.add("esconder");
+    tabla_estado_diario.classList.remove("esconder");
+    pintarIndividual(weatherHourTomorrow);
+    mañana.classList.add("is-selected");
+    hoy.classList.remove("is-selected");
+    semana.classList.remove("is-selected");
+    siguiente_semana.classList.remove("is-selected");
+});
 const semana = document.getElementById("semana");
 semana.addEventListener("click", () => {
     swap.innerHTML = "";
-    pintarIndividual(weatherDays);
+    tabla_estado_semanal.classList.remove("esconder");
+    tabla_estado_diario.classList.add("esconder");
+    pintarTabla(weatherDays);
     mañana.classList.remove("is-selected");
     hoy.classList.remove("is-selected");
     semana.classList.add("is-selected");
@@ -288,7 +325,9 @@ semana.addEventListener("click", () => {
 const siguiente_semana = document.getElementById("siguiente_semana");
 siguiente_semana.addEventListener("click", () => {
     swap.innerHTML = "";
-    pintarIndividual(weatherDays);
+    tabla_estado_semanal.classList.remove("esconder");
+    tabla_estado_diario.classList.add("esconder");
+    pintarTabla(weatherDays);
     mañana.classList.remove("is-selected");
     hoy.classList.remove("is-selected");
     semana.classList.remove("is-selected");
