@@ -47,6 +47,10 @@ const fetchDataLatLon = async (latitude, longitude) => {
                 temp: floorTemp(data.hourly[i].temp),
                 desc: data.hourly[i].weather[0].main,
                 hora: `${hora}:00`,
+                max: floorTemp(data.daily[0].temp.max),
+                min: floorTemp(data.daily[0].temp.min),
+                humedad: data.current.humidity,
+                viento: data.current.wind_speed,
             };
             hora += 1;
 
@@ -59,6 +63,10 @@ const fetchDataLatLon = async (latitude, longitude) => {
                 temp: floorTemp(data.hourly[i].temp),
                 desc: data.hourly[i].weather[0].main,
                 hora: `${hora - 24}:00`,
+                max: floorTemp(data.daily[1].temp.max),
+                min: floorTemp(data.daily[1].temp.min),
+                humedad: data.daily[1].humidity,
+                viento: data.daily[1].wind_speed,
             };
             hora += 1;
 
@@ -72,6 +80,10 @@ const fetchDataLatLon = async (latitude, longitude) => {
                 temp: floorTemp(data.daily[i].temp.eve),
                 desc: data.daily[i].weather[0].main,
                 dia: diasSemana2[fecha.getDay() + i],
+                max: floorTemp(data.daily[0].temp.max),
+                min: floorTemp(data.daily[0].temp.min),
+                humedad: data.current.humidity,
+                viento: data.current.wind_speed,
             };
             console.log(diasSemana2[fecha.getDay() + i]);
             weatherDays.push(item);
@@ -151,16 +163,21 @@ const success = (position) => {
 };
 
 navigator.geolocation.getCurrentPosition(success);
-
+const pintarBottom = (weatherToday) => {
+    const max = (document.getElementById(
+        "max"
+    ).innerText = ` ${weatherToday[0].max}`);
+    const min = (document.getElementById(
+        "min"
+    ).innerText = ` ${weatherToday[0].min}`);
+    const viento = (document.getElementById(
+        "viento"
+    ).innerText = ` ${weatherToday[0].viento} Km/H`);
+    const humedad = (document.getElementById(
+        "humedad"
+    ).innerText = ` ${weatherToday[0].humedad} %`);
+};
 const pintarCard = (weatherToday) => {
-    console.log(weatherToday);
-    const container = document.getElementById("container");
-    const temperature = (document.getElementById("temperature").innerText =
-        weatherToday.temp);
-    const city = (document.getElementById(
-        "city"
-    ).innerHtml = `<img src="./icons/Property 1=map-pin.svg" alt="">${weatherToday.lugar}`);
-    const fecha = (document.getElementById("fecha").innerText = obtenerFecha());
     const max = (document.getElementById(
         "max"
     ).innerText = ` ${weatherToday.max}`);
@@ -173,6 +190,14 @@ const pintarCard = (weatherToday) => {
     const humedad = (document.getElementById(
         "humedad"
     ).innerText = ` ${weatherToday.humedad} %`);
+    console.log(weatherToday);
+    const container = document.getElementById("container");
+    const temperature = (document.getElementById("temperature").innerText =
+        weatherToday.temp);
+    const city = (document.getElementById(
+        "city"
+    ).innerHtml = `<img src="./icons/Property 1=map-pin.svg" alt="">${weatherToday.lugar}`);
+    const fecha = (document.getElementById("fecha").innerText = obtenerFecha());
 
     // Rain, Clear, Clouds
     switch (weatherToday.estado) {
@@ -229,22 +254,45 @@ const pintarIndividual = (weatherHour) => {
         fragment.appendChild(clone);
     });
     swap.appendChild(fragment);
+    pintarBottom(weatherHour);
 };
 
 const mañana = document.getElementById("mañana");
 mañana.addEventListener("click", () => {
     swap.innerHTML = "";
     pintarIndividual(weatherHourTomorrow);
+
+    mañana.classList.add("is-selected");
+    hoy.classList.remove("is-selected");
+    semana.classList.remove("is-selected");
+    siguiente_semana.classList.remove("is-selected");
 });
 const hoy = document.getElementById("hoy");
 hoy.addEventListener("click", () => {
     swap.innerHTML = "";
     pintarIndividual(weatherHour);
+    mañana.classList.remove("is-selected");
+    hoy.classList.add("is-selected");
+    semana.classList.remove("is-selected");
+    siguiente_semana.classList.remove("is-selected");
 });
 const semana = document.getElementById("semana");
 semana.addEventListener("click", () => {
     swap.innerHTML = "";
     pintarIndividual(weatherDays);
+    mañana.classList.remove("is-selected");
+    hoy.classList.remove("is-selected");
+    semana.classList.add("is-selected");
+    siguiente_semana.classList.remove("is-selected");
+});
+const siguiente_semana = document.getElementById("siguiente_semana");
+siguiente_semana.addEventListener("click", () => {
+    swap.innerHTML = "";
+    pintarIndividual(weatherDays);
+    mañana.classList.remove("is-selected");
+    hoy.classList.remove("is-selected");
+    semana.classList.remove("is-selected");
+    siguiente_semana.classList.add("is-selected");
 });
 
 export default api;

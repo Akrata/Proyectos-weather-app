@@ -125,7 +125,8 @@ main {
     /* visibility: hidden; */
 }
 .is-selected {
-    border-bottom: solid 4px var(--primary) !important;
+    border-bottom: solid 2px var(--primary) !important;
+    color: var(--primary) !important;
 }
 .individual-is-selected {
     border: solid 3px var(--primary);
@@ -159,6 +160,7 @@ main {
     margin-left: 14px;
     align-items: center;
     position: relative;
+    /* border: solid 2px red; */
 }
 
 .individual__in {
