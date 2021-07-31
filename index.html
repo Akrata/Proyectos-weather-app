@@ -17,6 +17,7 @@
     <body>
         <main>
             <div id="container" class="container">
+                <div class="alerta"></div>
                 <div class="container__card" id="swapButton">
                     <div class="container__card--left">
                         <p id="temperature"></p>
@@ -66,7 +67,7 @@
                 </div>
             </div>
             <div id="tabla_estado_semanal" class="estado-semanal esconder">
-                <table class="tabla">
+                <table id ="tr_tabla" class="tabla">
                     <tr>
                         <th class="left">Dia</th>
                         <th>Estado</th>
@@ -75,7 +76,7 @@
                         <th>Min</th>
                     </tr>
                     <template id="tabla_template">
-                        <tr>
+                            <tr>
                             <td id="tabla_dia" class="left">Lunes</td>
                             <td id="tabla_icono">
                                 <img src="./icons/Sun.svg" alt="" />
@@ -85,56 +86,7 @@
                             <td id="tabla_min">15</td>
                         </tr>
                     </template>
-                    <tr>
-                        <td class="left">Lunes</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td class="left">Martes</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td class="left">Miercoles</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td class="left">Jueves</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td class="left">Viernes</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td class="left">Sabado</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                    <tr>
-                        <td class="left">Domingo</td>
-                        <td><img src="./icons/Sun.svg" alt="" /></td>
-                        <td>20</td>
-                        <td>22</td>
-                        <td>15</td>
-                    </tr>
-                </table>
+                    </table>
             </div>
         </div>
         <script type="module" src="./src/api.js"></script>

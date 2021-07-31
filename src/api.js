@@ -10,17 +10,6 @@ let weatherHourTomorrow = [];
 let weatherDays = [];
 let weatherHour = [];
 
-let diasSemana2 = new Array(
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado"
-);
-let fecha = new Date();
-
 const fetchDataLatLon = async (latitude, longitude) => {
     try {
         const res = await fetch(
@@ -74,17 +63,18 @@ const fetchDataLatLon = async (latitude, longitude) => {
         console.log(weatherHourTomorrow);
         //LOGICA DE SEMANA
 
-        for (let i = 0; i < data.daily.length; i++) {
+        for (let i = 1; i < data.daily.length; i++) {
+            let today = new Date();
             let item = {
                 temp: floorTemp(data.daily[i].temp.eve),
                 desc: data.daily[i].weather[0].main,
-                dia: diasSemana2[fecha.getDay() + i],
+                dia: obtenerDia(sumarDias(today, i)),
                 max: floorTemp(data.daily[0].temp.max),
                 min: floorTemp(data.daily[0].temp.min),
-                humedad: data.current.humidity,
-                viento: data.current.wind_speed,
             };
-            console.log(diasSemana2[fecha.getDay() + i]);
+            today += 1;
+            console.log(today);
+            console.log(item);
             weatherDays.push(item);
         }
 
@@ -108,7 +98,7 @@ const obtenerHora = () => {
     console.log(hora);
     return hora;
 };
-const obtenerDia = () => {
+const obtenerDia = (fecha) => {
     let diasSemana = new Array(
         "Domingo",
         "Lunes",
@@ -118,8 +108,7 @@ const obtenerDia = () => {
         "Viernes",
         "Sábado"
     );
-    let f = new Date();
-    return diasSemana[f.getDay()];
+    return diasSemana[fecha.getDay()];
 };
 
 const obtenerFecha = () => {
@@ -155,6 +144,11 @@ const obtenerFecha = () => {
         meses[f.getMonth()]
     );
 };
+
+function sumarDias(fecha, dias) {
+    fecha.setDate(fecha.getDate() + dias);
+    return fecha;
+}
 
 const success = (position) => {
     let latitude = position.coords.latitude;
@@ -258,17 +252,22 @@ const pintarIndividual = (weatherHour) => {
         fragment.appendChild(clone);
     });
     swap.appendChild(fragment);
+    console.log(swap);
     pintarBottom(weatherHour);
 };
 const tabla_estado_diario = document.getElementById("tabla_estado_diario");
 const tabla_estado_semanal = document.getElementById("tabla_estado_semanal");
-const tabla_template = document.getElementById("tabla_template").content;
-const tabla_fragment = document.createDocumentFragment();
+
+const tr_tabla = document.querySelector("#tr_tabla");
+const template_tabla = document.querySelector("#tabla_template").content;
+const fragment_tabla = document.createDocumentFragment();
 const pintarTabla = (weather) => {
     weather.forEach((element) => {
-        tabla_template.querySelector("#tabla_dia").textContent = element.hora;
-        tabla_template.querySelector("#tabla_temp").textContent = element.temp;
-        let icono = tabla_template.querySelector("#tabla_icono");
+        template_tabla.querySelector("#tabla_dia").textContent = element.dia;
+        let icono = template_tabla.querySelector("#tabla_icono");
+        template_tabla.querySelector("#tabla_temp").textContent = element.temp;
+        template_tabla.querySelector("#tabla_max").textContent = element.max;
+        template_tabla.querySelector("#tabla_min").textContent = element.min;
         const climaIcono = () => {
             if (element.desc == "Rain") {
                 return clima.tormenta;
@@ -280,13 +279,13 @@ const pintarTabla = (weather) => {
                 return clima.soleado;
             }
         };
-
         icono.setAttribute("src", `${climaIcono()}`);
-        const clone = tabla_template.cloneNode(true);
-        tabla_fragment.appendChild(clone);
+        let clone = template_tabla.cloneNode(true);
+        fragment_tabla.appendChild(clone);
     });
-    tabla_estado_semanal.appendChild(fragment);
+    tr_tabla.appendChild(fragment_tabla);
 };
+
 let booleano = false;
 const modificarTamaño = (bool) => {
     if (bool) {
@@ -309,6 +308,7 @@ const modificarTamaño = (bool) => {
 const hoy = document.getElementById("hoy");
 hoy.addEventListener("click", () => {
     swap.innerHTML = "";
+    tr_tabla.innerHtml = "";
     tabla_estado_semanal.classList.add("esconder");
     tabla_estado_diario.classList.remove("esconder");
     pintarIndividual(weatherHour);
@@ -322,6 +322,7 @@ hoy.addEventListener("click", () => {
 const mañana = document.getElementById("mañana");
 mañana.addEventListener("click", () => {
     swap.innerHTML = "";
+    tr_tabla.innerHtml = "";
     tabla_estado_semanal.classList.add("esconder");
     tabla_estado_diario.classList.remove("esconder");
     pintarIndividual(weatherHourTomorrow);
@@ -335,28 +336,33 @@ mañana.addEventListener("click", () => {
 const semana = document.getElementById("semana");
 semana.addEventListener("click", () => {
     swap.innerHTML = "";
+    tr_tabla.innerHTML =
+        '<tr><th class="left">Dia</th><th>Estado</th><th>Temp</th><th>Max</th><th>Min</th></tr>';
     tabla_estado_semanal.classList.remove("esconder");
     tabla_estado_diario.classList.add("esconder");
-    pintarTabla(weatherDays);
     mañana.classList.remove("is-selected");
     hoy.classList.remove("is-selected");
     semana.classList.add("is-selected");
     siguiente_semana.classList.remove("is-selected");
     modificarTamaño(true);
     booleano = true;
+    pintarTabla(weatherDays);
 });
 const siguiente_semana = document.getElementById("siguiente_semana");
 siguiente_semana.addEventListener("click", () => {
     swap.innerHTML = "";
+    tr_tabla.innerHTML =
+        '<tr><th class="left">Dia</th><th>Estado</th><th>Temp</th><th>Max</th><th>Min</th></tr>';
+    console.log(tr_tabla);
     tabla_estado_semanal.classList.remove("esconder");
     tabla_estado_diario.classList.add("esconder");
-    pintarTabla(weatherDays);
     mañana.classList.remove("is-selected");
     hoy.classList.remove("is-selected");
     semana.classList.remove("is-selected");
     siguiente_semana.classList.add("is-selected");
     modificarTamaño(true);
     booleano = true;
+    pintarTabla(weatherDays);
 });
 
 const swapButton = document.getElementById("swapButton");
