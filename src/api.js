@@ -223,7 +223,7 @@ const pintarCard = (weatherToday) => {
                 break;
             case "Clear":
                 container.style.backgroundImage =
-                    "url('../images/noche-despejado.jpg')";
+                    "url('./images/noche-despejado.jpg')";
                 break;
             case "Clouds":
                 container.style.backgroundImage =
