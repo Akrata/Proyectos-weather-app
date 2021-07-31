@@ -53,6 +53,10 @@ main {
 #pantalla_completa {
     margin-top: -40px;
     margin-left: -200px;
+    background: var(--gradient);
+    border-radius: 8px;
+    border: none;
+    padding: 3px;
 }
 .alerta {
     width: 70vw;
