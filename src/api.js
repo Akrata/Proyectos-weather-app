@@ -1,5 +1,4 @@
 const API_KEY = "edbd7f5332b0eacf66210e464485e33b";
-let api = ``;
 
 let clima = {
     soleado: "./icons/Sun.svg",
@@ -288,6 +287,24 @@ const pintarTabla = (weather) => {
     });
     tabla_estado_semanal.appendChild(fragment);
 };
+let booleano = false;
+const modificarTamaño = (bool) => {
+    if (bool) {
+        document.getElementById("swapInfo").classList.remove("swap-top");
+        document.getElementById("swapInfo").classList.add("swap-top-big");
+        document.getElementById("swapButton").classList.remove("swap-card");
+        document.getElementById("swapButton").classList.add("swap-card-big");
+        document.getElementById("swapInfo").classList.remove("swapInfo");
+        document.getElementById("swapInfo").classList.add("swapInfo-big");
+    } else {
+        document.getElementById("swapInfo").classList.remove("swap-top-big");
+        document.getElementById("swapInfo").classList.add("swap-top");
+        document.getElementById("swapButton").classList.remove("swap-card-big");
+        document.getElementById("swapButton").classList.add("swap-card");
+        document.getElementById("swapInfo").classList.remove("swapInfo-big");
+        document.getElementById("swapInfo").classList.add("swapInfo");
+    }
+};
 
 const hoy = document.getElementById("hoy");
 hoy.addEventListener("click", () => {
@@ -299,6 +316,8 @@ hoy.addEventListener("click", () => {
     hoy.classList.add("is-selected");
     semana.classList.remove("is-selected");
     siguiente_semana.classList.remove("is-selected");
+    modificarTamaño(false);
+    booleano = false;
 });
 const mañana = document.getElementById("mañana");
 mañana.addEventListener("click", () => {
@@ -310,6 +329,8 @@ mañana.addEventListener("click", () => {
     hoy.classList.remove("is-selected");
     semana.classList.remove("is-selected");
     siguiente_semana.classList.remove("is-selected");
+    modificarTamaño(false);
+    booleano = false;
 });
 const semana = document.getElementById("semana");
 semana.addEventListener("click", () => {
@@ -321,6 +342,8 @@ semana.addEventListener("click", () => {
     hoy.classList.remove("is-selected");
     semana.classList.add("is-selected");
     siguiente_semana.classList.remove("is-selected");
+    modificarTamaño(true);
+    booleano = true;
 });
 const siguiente_semana = document.getElementById("siguiente_semana");
 siguiente_semana.addEventListener("click", () => {
@@ -332,6 +355,19 @@ siguiente_semana.addEventListener("click", () => {
     hoy.classList.remove("is-selected");
     semana.classList.remove("is-selected");
     siguiente_semana.classList.add("is-selected");
+    modificarTamaño(true);
+    booleano = true;
 });
 
-export default api;
+const swapButton = document.getElementById("swapButton");
+const swapInfo = document.getElementById("swapInfo");
+
+swapButton.onclick = () => {
+    if (booleano == false) {
+        swapButton.classList.toggle("swap-card");
+        swapInfo.classList.toggle("swap-top");
+    } else {
+        swapButton.classList.toggle("swap-card-big");
+        swapInfo.classList.toggle("swap-top-big");
+    }
+};

@@ -65,6 +65,9 @@ main {
 .swap-card {
     transform: translateY(-284px);
 }
+.swap-card-big {
+    transform: translateY(-359px);
+}
 .container__card--left {
     /* border: 1px solid red; */
     width: 69px;
@@ -105,10 +108,23 @@ main {
     padding-top: 12px;
     transition: all 0.5s;
 }
+.swapInfo-big {
+    width: 100vw;
+    height: 359px;
+    background-color: var(--bg);
+    border-radius: 16px 16px 0px 0px;
+    visibility: hidden;
+    padding-top: 12px;
+    transition: all 0.5s;
+}
 
 .swap-top {
     visibility: visible;
     transform: translateY(-284px);
+}
+.swap-top-big {
+    visibility: visible;
+    transform: translateY(-359px);
 }
 .bar {
     height: 4px;
