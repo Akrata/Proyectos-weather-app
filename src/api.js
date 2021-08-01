@@ -41,11 +41,11 @@ function toggleFullscreen(elem) {
     }
 }
 
-document
-    .getElementById("pantalla_completa")
-    .addEventListener("click", function () {
-        toggleFullscreen();
-    });
+// document
+//     .getElementById("pantalla_completa")
+//     .addEventListener("click", function () {
+//         toggleFullscreen();
+//     });
 
 const fetchDataLatLon = async (latitude, longitude) => {
     try {
@@ -54,7 +54,7 @@ const fetchDataLatLon = async (latitude, longitude) => {
         );
         // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&appid=${API_KEY}`);
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         // for (let i = 0; i<= data.daily.length; i++)
         const weatherToday = {
             lugar: data.timezone.slice(quitarBarra(data.timezone)),
@@ -66,6 +66,7 @@ const fetchDataLatLon = async (latitude, longitude) => {
             estado: data.current.weather[0].main,
         };
 
+        //logica hora
         let hora = obtenerHora();
         for (let i = 0; i < 24 - obtenerHora(); i++) {
             let item = {
@@ -97,7 +98,7 @@ const fetchDataLatLon = async (latitude, longitude) => {
 
             weatherHourTomorrow.push(item);
         }
-        console.log(weatherHourTomorrow);
+        // console.log(weatherHourTomorrow);
         //LOGICA DE SEMANA
 
         for (let i = 1; i < data.daily.length; i++) {
@@ -110,12 +111,12 @@ const fetchDataLatLon = async (latitude, longitude) => {
                 min: floorTemp(data.daily[0].temp.min),
             };
             today += 1;
-            console.log(today);
-            console.log(item);
+            // console.log(today);
+            // console.log(item);
             weatherDays.push(item);
         }
 
-        console.log(weatherDays);
+        // console.log(weatherDays);
         pintarIndividual(weatherHour);
         pintarCard(weatherToday);
     } catch (error) {
@@ -132,7 +133,7 @@ const quitarBarra = (string) => {
 const obtenerHora = () => {
     let hoy = new Date();
     let hora = hoy.getHours();
-    console.log(hora);
+    // console.log(hora);
     return hora;
 };
 const obtenerDia = (fecha) => {
@@ -221,7 +222,7 @@ const pintarCard = (weatherToday) => {
     const humedad = (document.getElementById(
         "humedad"
     ).innerText = ` ${weatherToday.humedad} %`);
-    console.log(weatherToday);
+    // console.log(weatherToday);
     const container = document.getElementById("container");
     const temperature = (document.getElementById("temperature").innerText =
         weatherToday.temp);
@@ -262,8 +263,9 @@ const pintarCard = (weatherToday) => {
         }
     }
 
-    console.log(weatherToday.estado);
+    // console.log(weatherToday.estado);
 };
+
 const swap = document.getElementById("swap");
 const template = document.getElementById("template_individual").content;
 const fragment = document.createDocumentFragment();
@@ -289,7 +291,7 @@ const pintarIndividual = (weatherHour) => {
         fragment.appendChild(clone);
     });
     swap.appendChild(fragment);
-    console.log(swap);
+    // console.log(swap);
     pintarBottom(weatherHour);
 };
 const tabla_estado_diario = document.getElementById("tabla_estado_diario");
@@ -390,7 +392,7 @@ siguiente_semana.addEventListener("click", () => {
     swap.innerHTML = "";
     tr_tabla.innerHTML =
         '<tr><th class="left">Dia</th><th>Estado</th><th>Temp</th><th>Max</th><th>Min</th></tr>';
-    console.log(tr_tabla);
+    // console.log(tr_tabla);
     tabla_estado_semanal.classList.remove("esconder");
     tabla_estado_diario.classList.add("esconder");
     mañana.classList.remove("is-selected");
